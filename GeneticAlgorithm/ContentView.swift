@@ -2,112 +2,133 @@ import SwiftUI
 import UtilsPackage
 
 struct ContentView: View {
-   private static let base = 10
-   @State private var populationSize: Int = base * 10 * 2
-   @State private var geneLength: Int = base * 10
-   @State private var topPercent: Double = 0.05
-   @State private var mutationRate: Double = 0.07
-   @State private var crossoverRate: Double = 0.68
-   @State private var generations: Int = base * 3
-   @State private var bestIndividual: String = "...Nenhum..."
-   @State private var isRunning: Bool = false
-   @State private var isOn: Bool = true
+   @State private var populationSize = 100
+   @State private var mutationRate = 0.03
+   @State private var generations = 500
+   @State private var bestFitnessOverTime: [Double] = []
+   @State private var showingEvolution = false
+   
+   var body: some View {
+      NavigationStack {
+         VStack {
+            Form {
+               Section(header: Text("Configuração do Algoritmo Genético")) {
+                  Stepper(value: $populationSize, in: 10...1000) {
+                     Text("Tamanho da População: \(populationSize)")
+                  }
+                  Slider(value: $mutationRate, in: 0...1) {
+                     Text("Taxa de Mutação: \(mutationRate, specifier: "%.2f")")
+                  }
+                  Stepper(value: $generations, in: 10...1000) {
+                     Text("Número de Gerações: \(generations)")
+                  }
+               }
+               
+               Button(action: {
+                  runGeneticAlgorithm()
+                  showingEvolution = true
+               }) {
+                  Text("Iniciar Algoritmo Genético")
+                     .frame(maxWidth: .infinity)
+                     .padding()
+                     .background(Color.blue)
+                     .foregroundColor(.white)
+                     .cornerRadius(8)
+               }
+            }
+            .padding()
+         }
+         .navigationTitle("Configuração")
+         .navigationDestination(isPresented: $showingEvolution) {
+            EvolutionView(generations: bestFitnessOverTime)
+         }
+      }
+   }
+   
+   // Função para rodar o algoritmo genético
+   func runGeneticAlgorithm() {
+      // Inicialização da população
+      let population: [Individual<Bool>] = (0..<populationSize).map { _ in
+         let chromosome = Chromosome<Bool>.binary((0..<10).map { _ in Bool.random() })
+         return Individual(chromosome: chromosome)
+      }
+      
+      // Definindo componentes do algoritmo
+      let fitnessFunction = ExampleFitnessFunction()
+      let selectionStrategy = RouletteWheelSelection<Bool>()
+      let crossoverOperator = OnePointCrossover<Bool>()
+      let mutationOperator = BitFlipMutation()
+      let terminationCondition = TerminationCondition.maxGenerations(generations)
+      
+      // Configuração e execução do algoritmo
+      var geneticAlgorithm = GeneticAlgorithm(
+         population: population,
+         fitnessFunction: fitnessFunction,
+         selectionStrategy: selectionStrategy,
+         crossoverOperator: crossoverOperator,
+         mutationOperator: mutationOperator,
+         elitism: true,
+         nicheSize: nil
+      )
+      
+      // Evolui e armazena a melhor aptidão em cada geração
+      bestFitnessOverTime = []
+      for _ in 0..<generations {
+         geneticAlgorithm.evolve(generations: 1, terminationCondition: terminationCondition)
+         if let bestFitness = geneticAlgorithm.population.map({ $0.fitness }).max() {
+            bestFitnessOverTime.append(bestFitness)
+         }
+      }
+   }
+}
+
+// Função de aptidão de exemplo
+struct ExampleFitnessFunction: FitnessFunction {
+   func evaluate(individual: Individual<Bool>) -> Double {
+      if case .binary(let chromosome) = individual.chromosome {
+         // Avalia a aptidão como a soma dos bits
+         return Double(chromosome.filter { $0 }.count)
+      }
+      return 0.0
+   }
+}
+
+// MARK: - Visualização da Evolução
+struct EvolutionView: View {
+   var generations: [Double]
    
    var body: some View {
       VStack {
-         Text("Algoritmo Genético").font(.title).padding()
-         
-         Form {
-            Section(header: Text("Parâmetros")) {
-               Stepper(value: $populationSize, in: 10...1000, step: 10) {
-                  Text("Tamanho da População: \(populationSize)")
-               }
-               Stepper(value: $geneLength, in: 5...100, step: 5) {
-                  Text("Tamanho do Genoma: \(geneLength)")
-               }
-               .onChange(of: geneLength) { _, newValue in
-                  populationSize = newValue * 3
-                  generations = 4 * newValue / 10
-               }
-               Slider(value: $topPercent, in: 0.0...1.0) {
-                  Text("Taxa de Melhores: \(topPercent, specifier: "%.2f")")
-               }
-               Slider(value: $mutationRate, in: 0.0...1.0) {
-                  Text("Taxa de Mutação: \(mutationRate, specifier: "%.2f")")
-               }
-               Slider(value: $crossoverRate, in: 0.0...1.0) {
-                  Text("Taxa de Crossover: \(crossoverRate, specifier: "%.2f")")
-               }
-               Stepper(value: $generations, in: 1...1000, step: 5) {
-                  Text("Número de Gerações: \(generations)")
-               }
-            }
-         }
-         .padding()
-         
-         HStack {
-            Toggle(isOn: $isOn) {
-               Text("Valor:")
-            }
-            if isOn {
-               Text("Maior")
-            } else {
-               Text("Menor")
-            }
-         }
-         Button(action: startAlgorithm) {
-            Text(isRunning ? "Executando..." : "Iniciar Algoritmo Genético")
-               .padding()
-               .background(isRunning ? Color.gray : Color.blue)
-               .foregroundColor(.white)
-               .cornerRadius(8)
-         }
-         .disabled(isRunning)
-
-         Text("\nMelhor Indivíduo:")
+         Text("Evolução da Aptidão")
             .font(.headline)
-            .foregroundColor(.blue)
-         
-         Text(bestIndividual)
-            .font(.body)
-            .multilineTextAlignment(.center)
             .padding()
-         
+         LineGraph(data: generations)
+            .padding()
          Spacer()
       }
-      .padding()
-      .frame(minWidth: 400, minHeight: 400)
+      .navigationTitle("Resultado")
    }
+}
+
+// MARK: - Visualização de Gráfico (exemplo simples)
+struct LineGraph: View {
+   var data: [Double]
    
-   func startAlgorithm() {
-      isRunning = true
-      DispatchQueue.main.async {
-         self.bestIndividual = "..."
-      }
-      DispatchQueue.global(qos: .background).async {
-         let algorithm = GeneticAlgorithm(
-            populationSize: populationSize,
-            geneLength: geneLength,
-            topPercent: topPercent,
-            mutationRate: mutationRate,
-            crossoverRate: crossoverRate,
-            generations: generations,
-            bestFitness: isOn ? { $0 > $1 } : { $0 < $1 },
-            fitnessFunction: { Double($0.genes.reduce(0, +)) }
-         )
-         
-         algorithm.run { msg in
-            DispatchQueue.main.async {
-               self.bestIndividual = msg
+   var body: some View {
+      GeometryReader { geometry in
+         Path { path in
+            let width = geometry.size.width
+            let height = geometry.size.height
+            let step = width / CGFloat(data.count - 1)
+            
+            path.move(to: CGPoint(x: 0, y: height * CGFloat(1 - data[0])))
+            
+            for i in 1..<data.count {
+               let point = CGPoint(x: step * CGFloat(i), y: height * CGFloat(1 - data[i] / (data.max() ?? 1.0)))
+               path.addLine(to: point)
             }
          }
-         
-         if let best = algorithm.population.individuals.first {
-            DispatchQueue.main.async {
-               self.bestIndividual = best.str
-               self.isRunning = false
-            }
-         }
+         .stroke(Color.blue, lineWidth: 2)
       }
    }
 }
