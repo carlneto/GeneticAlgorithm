@@ -3,13 +3,12 @@ import UtilsPackage
 
 struct ContentView: View {
    private static let base = 10
-   @State private var populationSize: Int = base * 10 * 3
+   @State private var populationSize: Int = base * 10 * 2
    @State private var geneLength: Int = base * 10
-   @State private var starving: Int = 5
-   @State private var topPercent: Double = 0.15
+   @State private var topPercent: Double = 0.05
    @State private var mutationRate: Double = 0.07
    @State private var crossoverRate: Double = 0.68
-   @State private var generations: Int = base * 4
+   @State private var generations: Int = base * 3
    @State private var bestIndividual: String = "...Nenhum..."
    @State private var isRunning: Bool = false
    @State private var isOn: Bool = true
@@ -29,9 +28,6 @@ struct ContentView: View {
                .onChange(of: geneLength) { _, newValue in
                   populationSize = newValue * 3
                   generations = 4 * newValue / 10
-               }
-               Stepper(value: $starving, in: 4...10, step: 1) {
-                  Text("Sem Melhoras: \(starving)")
                }
                Slider(value: $topPercent, in: 0.0...1.0) {
                   Text("Taxa de Melhores: \(topPercent, specifier: "%.2f")")
@@ -91,8 +87,7 @@ struct ContentView: View {
       DispatchQueue.global(qos: .background).async {
          let algorithm = GeneticAlgorithm(
             populationSize: populationSize,
-            geneLength: geneLength, 
-            starving: starving,
+            geneLength: geneLength,
             topPercent: topPercent,
             mutationRate: mutationRate,
             crossoverRate: crossoverRate,
