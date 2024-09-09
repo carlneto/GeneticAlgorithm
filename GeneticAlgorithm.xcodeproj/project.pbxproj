@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		AFBE35342C8E1C9C00354816 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBE35332C8E1C9C00354816 /* ContentView.swift */; };
 		AFBE35362C8E1C9D00354816 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBE35352C8E1C9D00354816 /* Assets.xcassets */; };
 		AFBE35392C8E1C9D00354816 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBE35382C8E1C9D00354816 /* Preview Assets.xcassets */; };
+		AFBE35422C8E1CD600354816 /* UtilsPackage in Frameworks */ = {isa = PBXBuildFile; productRef = AFBE35412C8E1CD600354816 /* UtilsPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFBE35422C8E1CD600354816 /* UtilsPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +87,9 @@
 			dependencies = (
 			);
 			name = GeneticAlgorithm;
+			packageProductDependencies = (
+				AFBE35412C8E1CD600354816 /* UtilsPackage */,
+			);
 			productName = GeneticAlgorithm;
 			productReference = AFBE352E2C8E1C9C00354816 /* GeneticAlgorithm.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +118,9 @@
 				Base,
 			);
 			mainGroup = AFBE35252C8E1C9C00354816;
+			packageReferences = (
+				AFBE35402C8E1CD600354816 /* XCLocalSwiftPackageReference "../UtilsPackage" */,
+			);
 			productRefGroup = AFBE352F2C8E1C9C00354816 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -341,6 +349,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		AFBE35402C8E1CD600354816 /* XCLocalSwiftPackageReference "../UtilsPackage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../UtilsPackage;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AFBE35412C8E1CD600354816 /* UtilsPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UtilsPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AFBE35262C8E1C9C00354816 /* Project object */;
 }
