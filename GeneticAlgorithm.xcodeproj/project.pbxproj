@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF8EF1692EDCA1E9003179A2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AF8EF1682EDCA1E9003179A2 /* README.md */; };
+		AF8EF16A2EDCA1E9003179A2 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AF8EF1672EDCA1E9003179A2 /* LICENSE */; };
 		AFBE35322C8E1C9C00354816 /* GeneticAlgorithmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBE35312C8E1C9C00354816 /* GeneticAlgorithmApp.swift */; };
 		AFBE35342C8E1C9C00354816 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBE35332C8E1C9C00354816 /* ContentView.swift */; };
 		AFBE35362C8E1C9D00354816 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBE35352C8E1C9D00354816 /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF8EF1672EDCA1E9003179A2 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		AF8EF1682EDCA1E9003179A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AFBE352E2C8E1C9C00354816 /* GeneticAlgorithm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneticAlgorithm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBE35312C8E1C9C00354816 /* GeneticAlgorithmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticAlgorithmApp.swift; sourceTree = "<group>"; };
 		AFBE35332C8E1C9C00354816 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,6 +43,8 @@
 			isa = PBXGroup;
 			children = (
 				AFBE35302C8E1C9C00354816 /* GeneticAlgorithm */,
+				AF8EF1672EDCA1E9003179A2 /* LICENSE */,
+				AF8EF1682EDCA1E9003179A2 /* README.md */,
 				AFBE352F2C8E1C9C00354816 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,7 +108,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					AFBE352D2C8E1C9C00354816 = {
 						CreatedOnToolsVersion = 15.4;
@@ -137,6 +143,8 @@
 			files = (
 				AFBE35392C8E1C9D00354816 /* Preview Assets.xcassets in Resources */,
 				AFBE35362C8E1C9D00354816 /* Assets.xcassets in Resources */,
+				AF8EF1692EDCA1E9003179A2 /* README.md in Resources */,
+				AF8EF16A2EDCA1E9003179A2 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,7 +197,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3Q75G44A33;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -213,6 +223,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -252,7 +263,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3Q75G44A33;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -269,6 +282,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -282,10 +296,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"GeneticAlgorithm/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Q75G44A33;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -309,10 +325,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"GeneticAlgorithm/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Q75G44A33;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
