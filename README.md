@@ -26,7 +26,7 @@ Siga estes passos para configurar o projeto no seu ambiente de desenvolvimento:
 
 1.  **Clonar o Repositório:** (Assumindo que o código está num repositório Git, substitua pelo seu comando)
     ```bash
-    git clone [URL_DO_SEU_REPOSITÓRIO]
+    git clone git@github.com:carlneto/GeneticAlgorithm.git
     ```
 2.  **Abrir o Projeto:** Navegue até à pasta do projeto e abra o ficheiro `.xcodeproj` ou `.xcworkspace` (se aplicável) no **Xcode**.
 3.  **Compilar e Executar:** Selecione um alvo de execução (por exemplo, um simulador macOS App) e clique no botão **Run** (▶️) ou pressione `⌘R`.
