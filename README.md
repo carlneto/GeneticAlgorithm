@@ -56,7 +56,7 @@ To build and run the project, you will need:
 1. **Clone the Repository**
 
    ```bash
-   git clone [YOUR_REPOSITORY_URL]
+   git clone git@github.com:carlneto/GeneticAlgorithm.git
    ```
 
 2. **Open the Project**
