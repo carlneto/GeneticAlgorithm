@@ -10,11 +10,11 @@ struct ContentView: View {
    @State private var bestIndividual: String = "...Nenhum..."
    @State private var guess: String = "..."
    @State private var isRunning: Bool = false
-   
+
    var body: some View {
       VStack {
          Text("Algoritmo Genético").font(.title).padding()
-         
+
          Form {
             Section(header: Text("Parâmetros")) {
                Stepper(value: $populationSize, in: 5...500, step: 1) {
@@ -44,26 +44,26 @@ struct ContentView: View {
                .cornerRadius(8)
          }
          .disabled(isRunning)
-         
+
          Text("\nProcurando a solução:\n")
             .font(.headline)
             .foregroundColor(.blue)
-         
+
          Text(guess)
             .font(.body)
             .multilineTextAlignment(.center)
-         
+
          Text(bestIndividual)
             .font(.body)
             .multilineTextAlignment(.center)
             .padding()
-         
+
          Spacer()
       }
       .padding()
       .frame(minWidth: 400, minHeight: 400)
    }
-   
+
    func startAlgorithm() {
       isRunning = true
       DispatchQueue.main.async {
@@ -85,13 +85,13 @@ struct ContentView: View {
             bestFitness: { $0 < $1 },
             fitnessFunction: { $0.genes.euclideanDistance(to: genes) }
          )
-         
+
          algorithm.run { msg in
             DispatchQueue.main.async {
                self.bestIndividual = msg
             }
          }
-         
+
          if let best = algorithm.population.individuals.first {
             DispatchQueue.main.async {
                self.bestIndividual = best.str
